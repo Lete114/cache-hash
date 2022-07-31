@@ -1,0 +1,46 @@
+{
+  "name": "cache-hash",
+  "version": "1.0.0-beta.0",
+  "description": "Create hash for static resources to break http cache",
+  "main": "cache-hash.js",
+  "scripts": {
+    "test": "node bin/cache-hash -t test/source -o test/dist",
+    "lint": "npx eslint . && npx prettier --check .",
+    "lint:fix": "npx eslint --fix . && npx prettier --check --write ."
+  },
+  "bin": {
+    "cache-hash": "bin/cache-hash"
+  },
+  "author": "Lete乐特",
+  "license": "MIT",
+  "keywords": [
+    "hash",
+    "rev",
+    "revving",
+    "cache",
+    "file",
+    "files",
+    "caching",
+    "version",
+    "expire",
+    "assets",
+    "cache bust"
+  ],
+  "homepage": "https://github.com/Lete114/cache-hash#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lete114/cache-hash.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Lete114/cache-hash/issues"
+  },
+  "dependencies": {
+    "commander": "^9.4.0",
+    "jsdom": "^20.0.0",
+    "pretty-hrtime": "^1.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.20.0",
+    "prettier": "^2.7.1"
+  }
+}

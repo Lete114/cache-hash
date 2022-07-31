@@ -1,0 +1,9 @@
+* {
+  color: pink;
+}
+
+@font-face {
+  font-family: test;
+  font-display: block;
+  src: url(../font/index.woff2?v=d41d8cd98f) format('woff2');
+}
