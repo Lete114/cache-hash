@@ -24,11 +24,11 @@ const defualtOptions = {
   lazy: 'src',
   relative: false,
   html: true,
+  css: true,
+  style: true,
   queryString: {
     js: true,
-    css: true,
     html: {
-      style: true,
       script: true
     }
   }
@@ -36,7 +36,7 @@ const defualtOptions = {
 
 const caches = {}
 
-module.exports = function (options) {
+module.exports = async function (options) {
   try {
     options.target = isAbsolute(options.target) ? options.target : join(CWD, options.target, '/')
     options.output = isAbsolute(options.output) ? options.output : join(CWD, options.output, '/')
@@ -54,9 +54,10 @@ module.exports = function (options) {
     const mappings = mapping(files, options)
 
     const params = { options, files, mappings, caches }
+
     handlerJs(params)
-    handlerCss(params)
-    handlerHtml(params)
+    await handlerCss(params)
+    await handlerHtml(params)
 
     const interval = prettyHrtime(process.hrtime(start))
     const cyan = '\x1b[36m' + interval + '\x1b[39m'

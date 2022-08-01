@@ -43,9 +43,9 @@ Options:
   --lazy <lazy>                Image lazy loading (default: "src")
   --relative <relative>        Whether to handle references to relative paths (unstable) (default: false)
   --html <html>                Generate hash for html referenced resources (default: true)
+  --css <css>                  Generate hash for css referenced resources (default: true)
+  --style <style>              Generating hashes for resources referenced by style tags (<style>) (default: true)
   --queryJS <queryJS>          String lookup and replacement of js file content (default: true)
-  --queryCSS <queryCSS>        String lookup and replacement of css file content (default: true)
-  --queryStyle <queryStyle>    String query replacement for inline "style" tags in html file content (default: true)
   --queryScript <queryScript>  String query replacement for inline "script" tags in html file content (default: true)
   -h, --help                   display help for command
 ```

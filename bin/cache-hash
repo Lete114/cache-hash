@@ -18,9 +18,9 @@ program
   .option('--lazy <lazy>', 'Image lazy loading', 'src')
   .option('--relative <relative>', 'Whether to handle references to relative paths (unstable)', false)
   .option('--html <html>', 'Generate hash for html referenced resources', true)
+  .option('--css <css>', 'Generate hash for css referenced resources', true)
+  .option('--style <style>', 'Generating hashes for resources referenced by style tags (<style>)', true)
   .option('--queryJS <queryJS>', 'String lookup and replacement of js file content', true)
-  .option('--queryCSS <queryCSS>', 'String lookup and replacement of css file content', true)
-  .option('--queryStyle <queryStyle>', 'String query replacement for inline "style" tags in html file content', true)
   .option('--queryScript <queryScript>', 'String query replacement for inline "script" tags in html file content', true)
 
 program.parse(process.argv)
