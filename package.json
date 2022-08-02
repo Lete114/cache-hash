@@ -1,6 +1,6 @@
 {
   "name": "cache-hash",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "description": "Create hash for static resources to break http cache",
   "main": "cache-hash.js",
   "scripts": {
@@ -35,8 +35,14 @@
     "url": "https://github.com/Lete114/cache-hash/issues"
   },
   "dependencies": {
+    "acorn": "^8.8.0",
+    "acorn-walk": "^8.2.0",
     "commander": "^9.4.0",
-    "jsdom": "^20.0.0",
+    "css-select": "^5.1.0",
+    "dom-serializer": "^2.0.0",
+    "escodegen": "^2.0.0",
+    "htmlparser2": "^8.0.1",
+    "postcss": "^8.4.14",
     "pretty-hrtime": "^1.0.3"
   },
   "devDependencies": {
