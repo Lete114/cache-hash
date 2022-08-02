@@ -12,37 +12,24 @@ program.version('v' + version, '-v, --version')
 program
   .option('-t, --target <target>', 'Target resource directory', './')
   .requiredOption('-o, --output <output>', 'Output directory, If not set, he will overwrite the "target" content')
-  // .option('-r, --root <root>', 'The root of the website, usually "/"', '/')
   .option('--size <size>', 'Generate hash length', 10)
   .option('--key <key>', 'Version key', 'v')
   .option('--lazy <lazy>', 'Image lazy loading', 'src')
-  .option('--relative <relative>', 'Whether to handle references to relative paths (unstable)', false)
   .option('--html <html>', 'Generate hash for html referenced resources', true)
   .option('--css <css>', 'Generate hash for css referenced resources', true)
+  .option('--js <js>', 'Generate hash for js referenced resources', true)
   .option('--style <style>', 'Generating hashes for resources referenced by style tags (<style>)', true)
-  .option('--queryJS <queryJS>', 'String lookup and replacement of js file content', true)
-  .option('--queryScript <queryScript>', 'String query replacement for inline "script" tags in html file content', true)
+  .option('--script <script>', 'Generating hashes for resources referenced by script tags (<script>)', true)
 
 program.parse(process.argv)
 
 const options = program.opts()
 options.versionKey = options.key
 options.size = +options.size
-options.relative = isBoolean(options.relative)
-
-options.queryString = {
-  js: isBoolean(options.queryJS),
-  css: isBoolean(options.queryCSS),
-  html: {
-    style: isBoolean(options.queryStyle),
-    script: isBoolean(options.queryScript)
-  }
-}
-
-delete options.key
-delete options.queryJS
-delete options.queryCSS
-delete options.queryStyle
-delete options.queryScript
+options.js = isBoolean(options.js)
+options.css = isBoolean(options.css)
+options.html = isBoolean(options.html)
+options.style = isBoolean(options.style)
+options.script = isBoolean(options.script)
 
 cacheBust(options)

@@ -5,14 +5,15 @@
  */
 
 const { existsSync } = require('fs')
-const { isAbsolute, join } = require('path')
+const { isAbsolute, join, extname } = require('path')
 const prettyHrtime = require('pretty-hrtime')
 const readAllFile = require('./utils/readAllFile')
 const copy = require('./utils/copy')
-const mapping = require('./utils/mapping')
-const handlerJs = require('./lib/script')
+const handlerJs = require('./lib/js')
 const handlerCss = require('./lib/css')
 const handlerHtml = require('./lib/html')
+const handlerStyle = require('./lib/style')
+const handlerScript = require('./lib/script')
 
 const CWD = process.cwd()
 
@@ -22,20 +23,14 @@ const defualtOptions = {
   size: 10,
   versionKey: 'v',
   lazy: 'src',
-  relative: false,
   html: true,
   css: true,
+  js: true,
   style: true,
-  queryString: {
-    js: true,
-    html: {
-      script: true
-    }
-  }
+  script: true
 }
 
-const caches = {}
-
+/* eslint-disable max-statements*/
 module.exports = async function (options) {
   try {
     options.target = isAbsolute(options.target) ? options.target : join(CWD, options.target, '/')
@@ -51,21 +46,27 @@ module.exports = async function (options) {
 
     const files = readAllFile(options.output)
 
-    const mappings = mapping(files, options)
+    const htmlFiles = files.filter((file) => extname(file) === '.html')
+    const cssFiles = files.filter((file) => extname(file) === '.css')
+    const jsFiles = files.filter((file) => extname(file) === '.js')
 
-    const params = { options, files, mappings, caches }
+    const params = { options, htmlFiles, cssFiles, jsFiles }
 
     handlerJs(params)
-    await handlerCss(params)
-    await handlerHtml(params)
+    handlerCss(params)
+    handlerHtml(params)
+    handlerStyle(params)
+    handlerScript(params)
 
     const interval = prettyHrtime(process.hrtime(start))
     const cyan = '\x1b[36m' + interval + '\x1b[39m'
+    const green = '\x1b[32m[INFO]\x1b[39m'
 
     // eslint-disable-next-line
-    console.log('Successfully injected hash version in %s', cyan)
+    console.log(green, 'Successfully injected hash version in', cyan)
   } catch (error) {
     // eslint-disable-next-line
     console.error(error)
   }
 }
+/* eslint-enable */

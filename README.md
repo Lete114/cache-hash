@@ -35,19 +35,18 @@ $ cache-hash --help
 Usage: cache-hash [options]
 
 Options:
-  -v, --version                output the version number
-  -t, --target <target>        Target resource directory (default: "./")
-  -o, --output <output>        Output directory, If not set, he will overwrite the "target" content
-  --size <size>                Generate hash length (default: 10)
-  --key <key>                  Version key (default: "v")
-  --lazy <lazy>                Image lazy loading (default: "src")
-  --relative <relative>        Whether to handle references to relative paths (unstable) (default: false)
-  --html <html>                Generate hash for html referenced resources (default: true)
-  --css <css>                  Generate hash for css referenced resources (default: true)
-  --style <style>              Generating hashes for resources referenced by style tags (<style>) (default: true)
-  --queryJS <queryJS>          String lookup and replacement of js file content (default: true)
-  --queryScript <queryScript>  String query replacement for inline "script" tags in html file content (default: true)
-  -h, --help                   display help for command
+  -v, --version          output the version number
+  -t, --target <target>  Target resource directory (default: "./")
+  -o, --output <output>  Output directory, If not set, he will overwrite the "target" content
+  --size <size>          Generate hash length (default: 10)
+  --key <key>            Version key (default: "v")
+  --lazy <lazy>          Image lazy loading (default: "src")
+  --html <html>          Generate hash for html referenced resources (default: true)
+  --css <css>            Generate hash for css referenced resources (default: true)
+  --js <js>              Generate hash for js referenced resources (default: true)
+  --style <style>        Generating hashes for resources referenced by style tags (<style>) (default: true)
+  --script <script>      Generating hashes for resources referenced by script tags (<script>) (default: true)
+  -h, --help             display help for command
 ```
 
 ## Use JavaScript API
@@ -67,15 +66,10 @@ cacheHash({
 //   size: 10,
 //   versionKey: 'v',
 //   lazy: 'src',
-//   relative: false,
 //   html: true,
-//   queryString: {
-//     js: true,
-//     css: true,
-//     html: {
-//       style: true,
-//       script: true
-//     }
-//   }
+//   css: true,
+//   js: true,
+//   style: true,
+//   script: true
 // }
 ```
