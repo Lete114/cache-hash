@@ -52,11 +52,11 @@ module.exports = async function (options) {
 
     const params = { options, htmlFiles, cssFiles, jsFiles }
 
-    handlerJs(params)
-    handlerCss(params)
     handlerHtml(params)
     handlerStyle(params)
     handlerScript(params)
+    handlerCss(params)
+    handlerJs(params)
 
     const interval = prettyHrtime(process.hrtime(start))
     const cyan = '\x1b[36m' + interval + '\x1b[39m'

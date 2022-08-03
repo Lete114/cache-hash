@@ -1,17 +1,16 @@
 const { statSync, existsSync, readFileSync } = require('fs')
-const acorn = require('acorn')
 const walk = require('acorn-walk')
-const { generate } = require('escodegen')
 const getHash = require('./getHash')
 const setHash = require('./setHash')
 const searchParams = require('./searchParams')
 const getAbsolutePath = require('./getAbsolutePath')
+const { parse, print } = require('recast')
 
 module.exports = handlerScript
 
 function handlerScript(options, content, file) {
-  const ast = acorn.parse(content, { ecmaVersion: 'latest' })
-  walk.simple(ast, {
+  const ast = parse(content)
+  walk.simple(ast.program, {
     Literal(node) {
       let path = node.value
       if (typeof path !== 'string') return
@@ -25,5 +24,6 @@ function handlerScript(options, content, file) {
       }
     }
   })
-  return generate(ast)
+  const { code } = print(ast)
+  return code
 }

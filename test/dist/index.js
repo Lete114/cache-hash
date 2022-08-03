@@ -1,3 +1,3 @@
 console.log('Successfully')
-const abc = 'index.js?v=aa037fc2ea'
+const abc = 'index.js?v=cbff94b265'
 const age = 18
