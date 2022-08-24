@@ -1,16 +1,19 @@
 const { parse } = require('path')
-const { existsSync, mkdirSync } = require('fs')
+const { existsSync, mkdirSync, statSync } = require('fs')
 
 /**
  * Create a directory based on a path
- * @param {String} path
+ * @param {String} sourcePath
+ * @param {String} targetPath
  */
-function createDirPath(path) {
+function createDirPath(sourcePath, targetPath) {
   const dirs = []
 
-  getAllDir(path)
+  if (statSync(sourcePath).isFile()) targetPath = parse(targetPath).dir
+
+  getAllDir(targetPath)
+
   function getAllDir(tempPath) {
-    if (parse(tempPath).ext) tempPath = parse(tempPath).dir
     dirs.push(tempPath)
     const { root, dir, ext } = parse(tempPath)
     if (!ext && root !== dir) getAllDir(dir)
@@ -19,7 +22,6 @@ function createDirPath(path) {
   for (const d of dirs.reverse()) {
     if (!existsSync(d)) mkdirSync(d)
   }
-  return path
 }
 
 module.exports = createDirPath
