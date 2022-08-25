@@ -46,6 +46,7 @@ Options:
   --js <js>              Generate hash for js referenced resources (default: true)
   --style <style>        Generating hashes for resources referenced by style tags (<style>) (default: true)
   --script <script>      Generating hashes for resources referenced by script tags (<script>) (default: true)
+  --ignore <ignore...>   Ignore the specified directory or file (default: [])
   -h, --help             display help for command
 ```
 
@@ -70,6 +71,7 @@ cacheHash({
 //   css: true,
 //   js: true,
 //   style: true,
-//   script: true
+//   script: true,
+//   ignore: []
 // }
 ```
