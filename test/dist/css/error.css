@@ -1,0 +1,6 @@
+/* Test the wrong syntax of css */
+
+div:has(span){
+    color:green
+    font-size: 16px;
+}

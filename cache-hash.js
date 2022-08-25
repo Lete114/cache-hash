@@ -7,7 +7,7 @@
 const { existsSync } = require('fs')
 const { isAbsolute, join, extname } = require('path')
 const prettyHrtime = require('pretty-hrtime')
-const readAllFile = require('./utils/readAllFile')
+const fg = require('fast-glob')
 const copy = require('./utils/copy')
 const handlerJs = require('./lib/js')
 const handlerCss = require('./lib/css')
@@ -27,7 +27,8 @@ const defualtOptions = {
   css: true,
   js: true,
   style: true,
-  script: true
+  script: true,
+  ignore: []
 }
 
 /* eslint-disable max-statements*/
@@ -44,7 +45,7 @@ module.exports = async function (options) {
 
     copy(options.target, options.output)
 
-    const files = readAllFile(options.output)
+    const files = fg.sync('**', { dot: true, absolute: true, cwd: options.output, ignore: options.ignore })
 
     const htmlFiles = files.filter((file) => extname(file) === '.html')
     const cssFiles = files.filter((file) => extname(file) === '.css')

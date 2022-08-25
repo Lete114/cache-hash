@@ -1,3 +1,11 @@
-console.log('Successfully')
-const abc = 'index.js?v=cbff94b265'
+console.log('start')
+
+const abc = 'index.js'
 const age = 18
+
+const obj = {}
+
+if (obj?.name) {
+  console.log('name')
+}
+console.log('end')
