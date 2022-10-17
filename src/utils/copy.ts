@@ -1,12 +1,12 @@
-const { join } = require('path')
-const { readFileSync, writeFileSync } = require('fs')
-const fg = require('fast-glob')
+import { join } from 'path'
+import { readFileSync, writeFileSync } from 'fs'
+import fg from 'fast-glob'
 
-const createDirPath = require('./createDirPath')
+import createDirPath from './createDirPath'
 
-module.exports = copy
+export = copy
 
-function copy(target, output) {
+function copy(target: string, output: string) {
   const files = fg.sync('**', { dot: true, absolute: true, cwd: target })
   for (const file of files) {
     const _file = join(file).replace(target, '')

@@ -1,11 +1,11 @@
-const crypto = require('crypto')
+import crypto from 'crypto'
 /**
  * Generate hash
  * @param {String | Buffer} data Generate the contents of the hash
  * @param {Number} size The size (length) of the generated hash
  * @returns {String} hash
  */
-function getHash(data, size) {
+function getHash(data: string | Buffer, size: number) {
   if (typeof data !== 'string' && !Buffer.isBuffer(data)) {
     throw new TypeError('Expected a Buffer or string')
   }
@@ -14,4 +14,4 @@ function getHash(data, size) {
   return size > md5.length ? md5 : md5.slice(0, size)
 }
 
-module.exports = getHash
+export = getHash

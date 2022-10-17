@@ -1,7 +1,8 @@
-const { readFileSync, writeFileSync } = require('fs')
-const handlerCssUrl = require('../utils/handlerCssUrl')
+import { readFileSync, writeFileSync } from 'fs'
+import { handlerType } from '../types'
+import handlerCssUrl from '../utils/handlerCssUrl'
 
-module.exports = (params) => {
+export = (params: handlerType) => {
   const { options, cssFiles } = params
   if (!options.css) return
 

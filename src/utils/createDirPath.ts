@@ -1,19 +1,19 @@
-const { parse } = require('path')
-const { existsSync, mkdirSync, statSync } = require('fs')
+import { parse } from 'path'
+import { existsSync, mkdirSync, statSync } from 'fs'
 
 /**
  * Create a directory based on a path
- * @param {String} sourcePath
- * @param {String} targetPath
+ * @param {string} sourcePath
+ * @param {string} targetPath
  */
-function createDirPath(sourcePath, targetPath) {
-  const dirs = []
+function createDirPath(sourcePath: string, targetPath: string) {
+  const dirs: string[] = []
 
   if (statSync(sourcePath).isFile()) targetPath = parse(targetPath).dir
 
   getAllDir(targetPath)
 
-  function getAllDir(tempPath) {
+  function getAllDir(tempPath: string) {
     dirs.push(tempPath)
     const { root, dir, ext } = parse(tempPath)
     if (!ext && root !== dir) getAllDir(dir)
@@ -24,4 +24,4 @@ function createDirPath(sourcePath, targetPath) {
   }
 }
 
-module.exports = createDirPath
+export = createDirPath

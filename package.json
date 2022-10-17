@@ -2,16 +2,18 @@
   "name": "cache-hash",
   "version": "1.0.0-beta.6",
   "description": "Create hash for static resources to break http cache",
-  "main": "cache-hash.js",
+  "main": "dist/src/cache-hash.js",
   "scripts": {
-    "test": "node bin/cache-hash -t test/source -o test/dist --ignore **/error2.css",
-    "lint": "npx eslint . && npx prettier --check .",
-    "lint:fix": "npx eslint --fix . && npx prettier --check --write ."
+    "build": "tsc",
+    "test": "ts-node bin/cache-hash -t test/source -o test/dist --ignore **/error2.css",
+    "lint": "eslint src && prettier --check src",
+    "lint:fix": "eslint --fix src && prettier --check --write src"
   },
   "bin": {
     "cache-hash": "bin/cache-hash"
   },
-  "author": "Lete乐特",
+  "files": ["bin","dist"],
+  "author": "Lete <me@imlete.cn> (https://www.imlete.cn)",
   "license": "MIT",
   "keywords": [
     "hash",
@@ -47,7 +49,13 @@
     "recast": "^0.21.2"
   },
   "devDependencies": {
+    "@types/node": "^18.11.0",
+    "@types/pretty-hrtime": "^1.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
     "eslint": "^8.20.0",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
   }
 }

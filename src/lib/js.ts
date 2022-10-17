@@ -1,7 +1,8 @@
-const { readFileSync, writeFileSync } = require('fs')
-const handlerScript = require('../utils/handlerScript')
+import { readFileSync, writeFileSync } from 'fs'
+import { handlerType } from '../types'
+import handlerScript from '../utils/handlerScript'
 
-module.exports = (params) => {
+export = (params: handlerType) => {
   const { options, jsFiles } = params
   if (!options.js) return
 

@@ -4,16 +4,19 @@
  * blog: https://blog.imlete.cn
  */
 
-const { existsSync } = require('fs')
-const { isAbsolute, join, extname } = require('path')
-const prettyHrtime = require('pretty-hrtime')
-const fg = require('fast-glob')
-const copy = require('./utils/copy')
-const handlerJs = require('./lib/js')
-const handlerCss = require('./lib/css')
-const handlerHtml = require('./lib/html')
-const handlerStyle = require('./lib/style')
-const handlerScript = require('./lib/script')
+import { existsSync } from 'fs'
+import { isAbsolute, join } from 'path'
+import prettyHrtime from 'pretty-hrtime'
+import fg from 'fast-glob'
+import copy from './utils/copy'
+import filterFiles from './utils/filterFiles'
+import handlerJs from './lib/js'
+import handlerCss from './lib/css'
+import handlerHtml from './lib/html'
+import handlerStyle from './lib/style'
+import handlerScript from './lib/script'
+
+import { optionsType } from './types'
 
 const CWD = process.cwd()
 
@@ -32,7 +35,7 @@ const defualtOptions = {
 }
 
 /* eslint-disable max-statements*/
-module.exports = async function (options) {
+export = async function (options: optionsType) {
   try {
     options.target = isAbsolute(options.target) ? options.target : join(CWD, options.target, '/')
     options.output = isAbsolute(options.output) ? options.output : join(CWD, options.output, '/')
@@ -47,11 +50,12 @@ module.exports = async function (options) {
 
     const files = fg.sync('**', { dot: true, absolute: true, cwd: options.output, ignore: options.ignore })
 
-    const htmlFiles = files.filter((file) => extname(file) === '.html')
-    const cssFiles = files.filter((file) => extname(file) === '.css')
-    const jsFiles = files.filter((file) => extname(file) === '.js')
-
-    const params = { options, htmlFiles, cssFiles, jsFiles }
+    const params = {
+      options,
+      htmlFiles: filterFiles(files, '.html'),
+      cssFiles: filterFiles(files, '.css'),
+      jsFiles: filterFiles(files, '.js')
+    }
 
     handlerHtml(params)
     handlerStyle(params)

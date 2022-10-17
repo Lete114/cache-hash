@@ -1,10 +1,10 @@
-const searchParams = require('./searchParams')
+import searchParams from './searchParams'
 
-module.exports = setHash
+export = setHash
 
 const baseURL = 'http://127.0.0.1'
 
-function setHash(path, versionKey, version) {
+function setHash(path: string, versionKey: string, version: string) {
   const url = new URL(path, baseURL)
   url.searchParams.set(versionKey, version)
   path = path.replace(searchParams(path), '')

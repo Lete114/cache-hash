@@ -1,15 +1,16 @@
-const { readFileSync, existsSync, statSync } = require('fs')
-const { extname } = require('path')
-const postcss = require('postcss')
-const getHash = require('./getHash')
-const setHash = require('./setHash')
-const getAbsolutePath = require('./getAbsolutePath')
-const searchParams = require('./searchParams')
-const astErrorHandler = require('./astErrorHandler')
+import { readFileSync, existsSync, statSync } from 'fs'
+import { extname } from 'path'
+import postcss from 'postcss'
+import getHash from './getHash'
+import setHash from './setHash'
+import getAbsolutePath from './getAbsolutePath'
+import searchParams from './searchParams'
+import astErrorHandler from './astErrorHandler'
+import { KV, optionsType } from '../types'
 
-module.exports = handlerCssUrl
+export = handlerCssUrl
 
-function getUrls(value) {
+function getUrls(value: string) {
   const reg = /url\((\s*)(['"]?)(.+?)\2(\s*)\)/g
   let match
   const urls = []
@@ -29,9 +30,9 @@ function getUrls(value) {
   return urls
 }
 
-function handlerCssUrl(options, content, file) {
+function handlerCssUrl(options: optionsType, content: string, file: string) {
   try {
-    const plugin = {
+    const { css } = postcss({
       postcssPlugin: 'cache-hash-css-url',
       Once(root) {
         root.walkDecls(function (decl) {
@@ -51,11 +52,14 @@ function handlerCssUrl(options, content, file) {
           }
         })
       }
-    }
-    const { css } = postcss(plugin).process(content, { from: undefined })
+    }).process(content, { from: undefined })
     return css
   } catch (error) {
-    const info = { line: error.line, index: error.column }
+    const info: { line?: string; index?: string; msg: string } = {
+      line: (error as KV).line,
+      index: (error as KV).column,
+      msg: ''
+    }
     if (extname(file) === '.html') {
       delete info.line
       delete info.index

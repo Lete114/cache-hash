@@ -1,20 +1,21 @@
-const { statSync, existsSync, readFileSync } = require('fs')
-const walk = require('acorn-walk')
-const { parse, print } = require('recast')
-const getHash = require('./getHash')
-const setHash = require('./setHash')
-const searchParams = require('./searchParams')
-const getAbsolutePath = require('./getAbsolutePath')
-const astErrorHandler = require('./astErrorHandler')
+import { statSync, existsSync, readFileSync } from 'fs'
+import { simple } from 'acorn-walk'
+import { parse, print } from 'recast'
+import getHash from './getHash'
+import setHash from './setHash'
+import searchParams from './searchParams'
+import getAbsolutePath from './getAbsolutePath'
+import astErrorHandler from './astErrorHandler'
+import { KV, optionsType } from '../types'
 
-module.exports = handlerScript
+export = handlerScript
 
-function handlerScript(options, content, file) {
+function handlerScript(options: optionsType, content: string, file: string) {
   try {
     const ast = parse(content)
-    walk.simple(ast.program, {
+    simple(ast.program, {
       Literal(node) {
-        let path = node.value
+        let path = (node as KV).value
         if (typeof path !== 'string') return
         const pathParams = searchParams(path)
         path = path.replace(pathParams, '')
@@ -22,7 +23,7 @@ function handlerScript(options, content, file) {
         if (existsSync(filePath) && statSync(filePath).isFile()) {
           const data = readFileSync(filePath)
           const sourceHash = setHash(path + pathParams, options.versionKey, getHash(data, options.size))
-          node.value = sourceHash
+          ;(node as KV).value = sourceHash
         }
       }
     })
@@ -30,8 +31,8 @@ function handlerScript(options, content, file) {
     return code
   } catch (error) {
     const locationInfo = {
-      line: error.lineNumber,
-      index: error.index
+      line: (error as KV).lineNumber,
+      index: (error as KV).index
     }
     astErrorHandler(options, file, locationInfo)
     return content
