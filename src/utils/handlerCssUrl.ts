@@ -41,10 +41,10 @@ function handlerCssUrl(options: optionsType, content: string, file: string) {
               let path = meta.value
               const pathParams = searchParams(path)
               path = path.replace(pathParams, '')
-              const filePath = getAbsolutePath(options.output, file, path)
+              const filePath = getAbsolutePath(options.output as string, file, path)
               if (existsSync(filePath) && statSync(filePath).isFile()) {
                 const data = readFileSync(filePath)
-                meta.value = setHash(path + pathParams, options.versionKey, getHash(data, options.size))
+                meta.value = setHash(path + pathParams, options.versionKey as string, getHash(data, options.size))
                 meta.value = 'url(' + meta.before + meta.quote + meta.value + meta.quote + meta.after + ')'
                 decl.value = decl.value.replace(meta.source, meta.value)
               }

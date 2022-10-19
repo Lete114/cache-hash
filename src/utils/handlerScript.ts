@@ -19,10 +19,10 @@ function handlerScript(options: optionsType, content: string, file: string) {
         if (typeof path !== 'string') return
         const pathParams = searchParams(path)
         path = path.replace(pathParams, '')
-        const filePath = getAbsolutePath(options.output, file, path)
+        const filePath = getAbsolutePath(options.output as string, file, path)
         if (existsSync(filePath) && statSync(filePath).isFile()) {
           const data = readFileSync(filePath)
-          const sourceHash = setHash(path + pathParams, options.versionKey, getHash(data, options.size))
+          const sourceHash = setHash(path + pathParams, options.versionKey as string, getHash(data, options.size))
           ;(node as KV).value = sourceHash
         }
       }
@@ -32,7 +32,7 @@ function handlerScript(options: optionsType, content: string, file: string) {
   } catch (error) {
     const locationInfo = {
       line: (error as KV).lineNumber,
-      index: (error as KV).index
+      index: 1
     }
     astErrorHandler(options, file, locationInfo)
     return content

@@ -4,17 +4,17 @@ export type KV = {
 }
 
 export type optionsType = {
-  target: string
-  output: string
-  size: number
-  versionKey: string
-  lazy: string
-  html: boolean
-  css: boolean
-  js: boolean
-  style: boolean
-  script: boolean
-  ignore: string[]
+  target?: string
+  output?: string
+  size?: number
+  versionKey?: string
+  lazy?: string
+  html?: boolean
+  css?: boolean
+  js?: boolean
+  style?: boolean
+  script?: boolean
+  ignore?: string[]
 }
 
 export type handlerType = {

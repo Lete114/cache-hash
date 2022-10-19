@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const program = require('commander')
-const cacheBust = require('../src/cache-hash')
+const cacheBust = require('../dist/cache-hash')
 const { version } = require('../package.json')
 
 const isBoolean = (v) => v === true || (v || '').toLowerCase() === 'true'

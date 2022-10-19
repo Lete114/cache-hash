@@ -30,12 +30,12 @@ export = (params: handlerType) => {
       const pathParams = searchParams(path)
       path = path.replace(pathParams, '')
 
-      const sourcePath = getAbsolutePath(options.output, htmlFile, path)
+      const sourcePath = getAbsolutePath(options.output as string, htmlFile, path)
 
       if (existsSync(sourcePath) && statSync(sourcePath).isFile()) {
         const data = readFileSync(sourcePath)
         const sourceHash = getHash(data, options.size)
-        const sourceHashPath = setHash(path + pathParams, options.versionKey, sourceHash)
+        const sourceHashPath = setHash(path + pathParams, options.versionKey as string, sourceHash)
 
         ;(source as KV).attribs[attribs[name]] = sourceHashPath
       }

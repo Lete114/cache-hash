@@ -5,7 +5,7 @@ import crypto from 'crypto'
  * @param {Number} size The size (length) of the generated hash
  * @returns {String} hash
  */
-function getHash(data: string | Buffer, size: number) {
+function getHash(data: string | Buffer, size = 10) {
   if (typeof data !== 'string' && !Buffer.isBuffer(data)) {
     throw new TypeError('Expected a Buffer or string')
   }

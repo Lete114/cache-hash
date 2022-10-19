@@ -4,11 +4,10 @@
  * blog: https://blog.imlete.cn
  */
 
-import { existsSync } from 'fs'
+import { existsSync, copySync } from 'fs-extra'
 import { isAbsolute, join } from 'path'
 import prettyHrtime from 'pretty-hrtime'
 import fg from 'fast-glob'
-import copy from './utils/copy'
 import filterFiles from './utils/filterFiles'
 import handlerJs from './lib/js'
 import handlerCss from './lib/css'
@@ -37,16 +36,16 @@ const defualtOptions = {
 /* eslint-disable max-statements*/
 export = async function (options: optionsType) {
   try {
-    options.target = isAbsolute(options.target) ? options.target : join(CWD, options.target, '/')
-    options.output = isAbsolute(options.output) ? options.output : join(CWD, options.output, '/')
+    options.target = isAbsolute(options.target as string) ? options.target : join(CWD, options.target as string, '/')
+    options.output = isAbsolute(options.output as string) ? options.output : join(CWD, options.output as string, '/')
 
-    if (!existsSync(options.target)) throw new Error('Target directory does not exist')
+    if (!existsSync(options.target as string)) throw new Error('Target directory does not exist')
 
     const start = process.hrtime()
 
     options = Object.assign(defualtOptions, options)
 
-    copy(options.target, options.output)
+    copySync(options.target as string, options.output as string)
 
     const files = fg.sync('**', { dot: true, absolute: true, cwd: options.output, ignore: options.ignore })
 

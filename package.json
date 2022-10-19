@@ -5,14 +5,17 @@
   "main": "dist/src/cache-hash.js",
   "scripts": {
     "build": "tsc",
-    "test": "ts-node bin/cache-hash -t test/source -o test/dist --ignore **/error2.css",
+    "test": "mocha",
     "lint": "eslint src && prettier --check src",
     "lint:fix": "eslint --fix src && prettier --check --write src"
   },
   "bin": {
     "cache-hash": "bin/cache-hash"
   },
-  "files": ["bin","dist"],
+  "files": [
+    "bin",
+    "dist"
+  ],
   "author": "Lete <me@imlete.cn> (https://www.imlete.cn)",
   "license": "MIT",
   "keywords": [
@@ -43,17 +46,21 @@
     "css-select": "^5.1.0",
     "dom-serializer": "^2.0.0",
     "fast-glob": "^3.2.11",
+    "fs-extra": "^10.1.0",
     "htmlparser2": "^8.0.1",
     "postcss": "^8.4.14",
     "pretty-hrtime": "^1.0.3",
     "recast": "^0.21.2"
   },
   "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/mocha": "^10.0.0",
     "@types/node": "^18.11.0",
     "@types/pretty-hrtime": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
     "eslint": "^8.20.0",
+    "mocha": "^10.1.0",
     "prettier": "^2.7.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
