@@ -1,8 +1,8 @@
 {
   "name": "cache-hash",
-  "version": "1.0.0-beta.7",
+  "version": "1.0.0-beta.8",
   "description": "Create hash for static resources to break http cache",
-  "main": "dist/src/cache-hash.js",
+  "main": "dist/cache-hash.js",
   "scripts": {
     "build": "tsc",
     "test": "mocha",
