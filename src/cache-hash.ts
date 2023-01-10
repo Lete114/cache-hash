@@ -45,7 +45,7 @@ export = async function (options: optionsType) {
 
     options = Object.assign(defualtOptions, options)
 
-    copySync(options.target as string, options.output as string)
+    if (options.target !== options.output) copySync(options.target as string, options.output as string)
 
     const files = fg.sync('**', { dot: true, absolute: true, cwd: options.output, ignore: options.ignore })
 
