@@ -52,7 +52,16 @@ describe('handlerHtml', () => {
 
   it('hash injection', () => {
     const options: handlerType = {
-      options: { output: TEST_DIR, versionKey: 'v', html: true },
+      options: {
+        output: TEST_DIR,
+        versionKey: 'v',
+        html: true,
+        selectAll: [
+          ['script', 'src'],
+          ['link', 'href'],
+          ['img', 'src']
+        ]
+      },
       cssFiles: [],
       jsFiles: [],
       htmlFiles: [join(TEST_DIR, 'index.html')]
