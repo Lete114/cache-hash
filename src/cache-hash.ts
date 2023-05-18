@@ -19,12 +19,16 @@ import { optionsType } from './types'
 
 const CWD = process.cwd()
 
-const defualtOptions = {
+const defaultOptions: optionsType = {
   target: CWD,
   output: CWD,
   size: 10,
   versionKey: 'v',
-  lazy: 'src',
+  selectAll: [
+    ['script', 'src'],
+    ['link', 'href'],
+    ['img', 'src']
+  ],
   html: true,
   css: true,
   js: true,
@@ -34,16 +38,15 @@ const defualtOptions = {
 }
 
 /* eslint-disable max-statements*/
-export = async function (options: optionsType) {
+export = async function (opts: optionsType) {
   try {
+    const options: optionsType = { ...defaultOptions, ...opts }
     options.target = isAbsolute(options.target as string) ? options.target : join(CWD, options.target as string, '/')
     options.output = isAbsolute(options.output as string) ? options.output : join(CWD, options.output as string, '/')
 
     if (!existsSync(options.target as string)) throw new Error('Target directory does not exist')
 
     const start = process.hrtime()
-
-    options = Object.assign(defualtOptions, options)
 
     if (options.target !== options.output) copySync(options.target as string, options.output as string)
 

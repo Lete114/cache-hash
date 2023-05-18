@@ -8,7 +8,7 @@ export type optionsType = {
   output?: string
   size?: number
   versionKey?: string
-  lazy?: string
+  selectAll?: string[][]
   html?: boolean
   css?: boolean
   js?: boolean

@@ -1,9 +1,16 @@
+import { join } from 'path'
 import cacheHash from '../src/cache-hash'
 import { removeSync } from 'fs-extra'
 
 const options = {
-  target: 'L:\\Coding\\Code\\Nodejs\\cache-hash\\test\\source',
-  output: 'L:\\Coding\\Code\\Nodejs\\cache-hash\\test\\dist'
+  target: join(__dirname, 'source'),
+  output: join(__dirname, 'dist'),
+  selectAll: [
+    ['script', 'src'],
+    ['script', 'search'],
+    ['link', 'href'],
+    ['img', 'src']
+  ]
 }
 
 removeSync(options.output)

@@ -6,6 +6,12 @@ const { version } = require('../package.json')
 
 const isBoolean = (v) => v === true || (v || '').toLowerCase() === 'true'
 
+const selectAll = [
+  ['script', 'src'],
+  ['link', 'href'],
+  ['img', 'src']
+]
+
 // View version number
 program.version('v' + version, '-v, --version')
 
@@ -14,7 +20,12 @@ program
   .requiredOption('-o, --output <output>', 'Output directory, If not set, he will overwrite the "target" content')
   .option('--size <size>', 'Generate hash length', 10)
   .option('--key <key>', 'Version key', 'v')
-  .option('--lazy <lazy>', 'Image lazy loading', 'src')
+  .option(
+    '--selectAll <selectAll>',
+    // eslint-disable-next-line max-len
+    'Select the specified dom element. Example: `\'[["a","b"]]\'` selects the img tag, and the img tag must contain the lazy attribute',
+    selectAll
+  )
   .option('--html <html>', 'Generate hash for html referenced resources', true)
   .option('--css <css>', 'Generate hash for css referenced resources', true)
   .option('--js <js>', 'Generate hash for js referenced resources', true)
@@ -27,6 +38,7 @@ program.parse(process.argv)
 const options = program.opts()
 options.versionKey = options.key
 options.size = +options.size
+options.selectAll = JSON.parse(options.selectAll)
 options.js = isBoolean(options.js)
 options.css = isBoolean(options.css)
 options.html = isBoolean(options.html)

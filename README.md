@@ -40,7 +40,7 @@ Options:
   -o, --output <output>  Output directory, If not set, he will overwrite the "target" content
   --size <size>          Generate hash length (default: 10)
   --key <key>            Version key (default: "v")
-  --lazy <lazy>          Image lazy loading (default: "src")
+  --lazy <lazy>          Select the specified dom element. Example: `'[["a","b"]]'` selects the img tag, and the img tag must contain the lazy attribute (default: [['script', 'src'], ['link', 'href'], ['img', 'src']])
   --html <html>          Generate hash for html referenced resources (default: true)
   --css <css>            Generate hash for css referenced resources (default: true)
   --js <js>              Generate hash for js referenced resources (default: true)
@@ -66,7 +66,7 @@ cacheHash({
 //   output: process.cwd(), // Current command line path
 //   size: 10,
 //   versionKey: 'v',
-//   lazy: 'src',
+//   selectAll: [ [ 'script', 'src' ], [ 'link', 'href' ], [ 'img', 'src' ] ],
 //   html: true,
 //   css: true,
 //   js: true,
