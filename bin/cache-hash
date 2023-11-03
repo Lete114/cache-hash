@@ -38,7 +38,10 @@ program.parse(process.argv)
 const options = program.opts()
 options.versionKey = options.key
 options.size = +options.size
-options.selectAll = JSON.parse(options.selectAll)
+if(typeof options.selectAll === 'string'){
+  options.selectAll = options.selectAll.replace(/'/g,'"')
+  options.selectAll = JSON.parse(options.selectAll)
+}
 options.js = isBoolean(options.js)
 options.css = isBoolean(options.css)
 options.html = isBoolean(options.html)
