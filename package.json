@@ -1,6 +1,6 @@
 {
   "name": "cache-hash",
-  "version": "1.0.0-beta.10",
+  "version": "1.0.0-beta.11",
   "description": "Create hash for static resources to break http cache",
   "main": "dist/cache-hash.js",
   "scripts": {
